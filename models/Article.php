@@ -6,7 +6,9 @@ class Article extends Model{
     private int $id; 
     private string $name; 
     private string $author; 
-    private string $description; 
+    private string $description;
+    private int $category_id; 
+ 
     
     protected static string $table = "articles";
 
@@ -15,6 +17,8 @@ class Article extends Model{
         $this->name = $data["name"];
         $this->author = $data["author"];
         $this->description = $data["description"];
+         $this->category_id = $data["category_id"];
+
     }
 
     public function getId(): int {
@@ -46,7 +50,10 @@ class Article extends Model{
     }
 
     public function toArray(){
-        return [$this->id, $this->name, $this->author, $this->description];
+        return ['name' => $this->name,
+        'author' => $this->author,
+        'description' => $this->description,
+        'category_id' => $this->category_id];
     }
     
 }

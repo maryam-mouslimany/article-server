@@ -1,5 +1,5 @@
 <?php 
-
+require __DIR__ . '/routes/api.php';
 // This block is used to extract the route name from the URL
 //----------------------------------------------------------
 // Define your base directory 
@@ -15,6 +15,8 @@ if (strpos($request, $base_dir) === 0) {
 if ($request == '') {
     $request = '/';
 }
+$api = new Api();
+$api-> route($request);
 
 //Examples: 
 //http://localhost/getArticles -------> $request = "getArticles"
@@ -27,14 +29,6 @@ if ($request == '') {
 //Routing starts here (Mapping between the request and the controller & method names)
 //It's an key-value array where the value is an key-value array
 //----------------------------------------------------------
-$apis = [
-    '/articles'         => ['controller' => 'ArticleController', 'method' => 'getAllArticles'],
-    '/delete_articles'         => ['controller' => 'ArticleController', 'method' => 'deleteAllArticles'],
-
-    '/login'         => ['controller' => 'AuthController', 'method' => 'login'],
-    '/register'         => ['controller' => 'AuthController', 'method' => 'register'],
-
-];
 
 //----------------------------------------------------------
 
@@ -42,17 +36,4 @@ $apis = [
 //Routing Logic here 
 //This is a dynamic logic, that works on any array... 
 //----------------------------------------------------------
-if (isset($apis[$request])) {
-    $controller_name = $apis[$request]['controller']; //if $request == /articles, then the $controller_name will be "ArticleController" 
-    $method = $apis[$request]['method'];
-    require_once "controllers/{$controller_name}.php";
 
-    $controller = new $controller_name();
-    if (method_exists($controller, $method)) {
-        $controller->$method();
-    } else {
-        echo "Error: Method {$method} not found in {$controller_name}.";
-    }
-} else {
-    echo "404 Not Found";
-}
