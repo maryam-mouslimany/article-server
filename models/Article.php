@@ -32,6 +32,9 @@ class Article extends Model{
     public function getAuthor(): string {
         return $this->author;
     }
+    public function getCategoryId(): string {
+        return $this->category_id;
+    }
 
     public function getDescription(): string {
         return $this->description;

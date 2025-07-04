@@ -115,8 +115,6 @@ abstract class Model{
     }
     public static function findAllWhere($mysqli, $attr, $value){
         $table = static::$table;
-                $primary_key = static::$table;
-
         $sql=sprintf("SELECT * from %s WHERE %s = ?",$table, $attr );
         $query = $mysqli->prepare($sql);
         $query->bind_param("i", $value);
@@ -129,7 +127,7 @@ abstract class Model{
 
         return $objects; 
     }
-    public function findWhere($mysqli, $attr){
+    /*public function findWhere($mysqli, $attr){
         $table = static::$table;
         $primary_key = static::$primary_key;
         $sql=sprintf("SELECT %s from %s WHERE %s = ?",$attr, $table,$primary_key );
@@ -139,10 +137,9 @@ abstract class Model{
         $query->execute();
         $result = $query->get_result();
     $row = $result->fetch_assoc();
+    return $row[$attr]; 
+    }*/
 
-    // Return only the value of the requested attribute
-    return $row[$attr] ?? null; // Returns null if not found
-    }
     //you have to continue with the same mindset
     //Find a solution for sending the $mysqli everytime... 
     //Implement the following: 

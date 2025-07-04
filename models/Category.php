@@ -29,5 +29,14 @@ class Category extends Model{
         return ['id'=> $this->id, 
                 'name' => $this->name];
     }
+     public static function findByName($mysqli, $name){
+         $sql = "SELECT id FROM categories WHERE name = ?";
+        $query = $mysqli->prepare($sql);
+        $query->bind_param('s', $name);
+        $query->execute();
+        $result = $query->get_result();
+        $row = $result->fetch_assoc();
+        return $row['id'] ; 
+    }
     
 }
